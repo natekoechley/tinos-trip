@@ -65,6 +65,7 @@
   .b-flat{background:#eef2f4;color:#48606c}
   .b-res{background:#efe7f6;color:#6b3e9b}
   .b-booked{background:var(--green);color:#fff}
+  .b-dur{background:#e3eef3;color:#27566b}
 
   .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
   .filters label{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;
@@ -88,6 +89,12 @@
   .keyrow:last-child{border-bottom:none}
   .keyrow .ic{font-size:1.1rem;flex:0 0 auto}
   .keyrow .tx b{font-size:.92rem}.keyrow .tx span{font-size:.84rem;color:var(--muted)}
+
+  /* menu info rows */
+  .mrow{display:flex;gap:8px;font-size:.85rem;margin-top:7px;align-items:baseline}
+  .mrow b{flex:0 0 76px;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:.7rem;letter-spacing:.4px;padding-top:1px}
+  .mrow span{flex:1;color:#36464f}
+  .mwhat{font-size:.92rem;color:#2b3a43;margin-top:8px}
 
   ul.res{list-style:none;padding:0;margin:8px 0 0}
   ul.res li{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
@@ -121,6 +128,7 @@
   <button data-tab="tue">Tue 23</button>
   <button data-tab="wed">Wed 24</button>
   <button data-tab="thu">Thu 25</button>
+  <button data-tab="menu">🧭 Outings</button>
   <button data-tab="nonnie">♿ Nonnie</button>
   <button data-tab="wind">🌬️ Wind</button>
   <button data-tab="res">📞 Reserve</button>
@@ -132,7 +140,7 @@
   <section class="panel active" id="overview">
     <div class="lede"><b>The whole trip in one idea:</b> the two cars are Nonnie's mobility system. At every stair-maze village, one car drops her at a flat anchor and stays; the other parks so the roamers can explore. One gentle "active" stop per day for her.</div>
 
-    <div class="card booked"><div class="time">✓ Booked meals</div><h3>Three are locked in</h3><p><b>Sun</b> — private chef at the villa, 4–8pm · <b>Mon</b> — Mikro Karavi lunch, 2pm (Hora) · <b>Tue</b> — O Ntinos dinner, 7pm (Kardiani Bay). <b>Mon &amp; Wed dinners are still open</b> — see the Reserve tab.</p></div>
+    <div class="card booked"><div class="time">✓ Booked meals</div><h3>Three are locked in</h3><p><b>Sun</b> — private chef at the villa, 5:30pm · <b>Mon</b> — Mikro Karavi lunch, 2pm (Hora) · <b>Tue</b> — O Ntinos dinner, 7pm (Kardiani Bay). <b>Mon &amp; Wed dinners are still open</b> — see the Reserve tab.</p></div>
 
     <h2 class="section">How to read the badges</h2>
     <div class="legendgrid">
@@ -141,18 +149,18 @@
     </div>
 
     <h2 class="section" style="margin-top:22px">The days at a glance</h2>
-    <div class="card"><div class="time">Sun 21 · today</div><h3>Settle in + chef tonight</h3><p>You arrived Saturday, so today's easy: villa, pool, maybe a short flat outing. Private chef cooks 4–8pm.</p></div>
+    <div class="card"><div class="time">Sun 21 · today</div><h3>Settle in + chef tonight</h3><p>You arrived Saturday, so today's easy: villa, pool, maybe a short flat outing. Private chef arrives 5:30pm.</p></div>
     <div class="card"><div class="time">Mon 22 · Hora</div><h3>Hora + the tablecloth errand</h3><p>The errand first, then Mikro Karavi lunch (2pm, booked). Galleries &amp; the church round it out.</p></div>
     <div class="card"><div class="time">Tue 23 · biggest day</div><h3>Northwest Loop → O Ntinos dinner</h3><p>Dovecotes → Pyrgos → Kardiani viewpoint, ending at O Ntinos on Kardiani Bay (7pm, booked). Lean on the two-car split.</p></div>
     <div class="card"><div class="time">Wed 24 · last full day</div><h3>Center-East cluster + last-night dinner</h3><p>Volax moonscape → villages → a sheltered beach. Last night — good time for the special dinner.</p></div>
     <div class="card"><div class="time">Thu 25</div><h3>Departure</h3><p>Checkout + travel out. Last waterfront coffee if time allows.</p></div>
-    <p class="tip">Tap the day tabs above for the hour-by-hour plan with badges.</p>
+    <p class="tip">Tap the day tabs for the hour-by-hour plan, or 🧭 Outings for the full à-la-carte menu.</p>
   </section>
 
   <!-- SUNDAY -->
   <section class="panel" id="sun">
     <h2 class="section">🏡 Sunday — Settle in + chef</h2>
-    <div class="daydate">June 21 · today · chef 4–8pm</div>
+    <div class="daydate">June 21 · today · chef arrives 5:30pm</div>
     <div class="lede">You arrived Saturday, so today's a soft landing. Keep Nonnie comfortable, don't over-schedule — the chef anchors the evening.</div>
     <div class="filters" data-day="sun">
       <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
@@ -202,6 +210,17 @@
     <h2 class="section">✈️ Thursday — Departure</h2>
     <div class="daydate">June 25 · checkout &amp; travel out</div>
     <div id="thu-list"></div>
+  </section>
+
+  <!-- OUTINGS MENU -->
+  <section class="panel" id="menu">
+    <h2 class="section">🧭 Outings — à la carte</h2>
+    <div class="lede">A menu of 1–4 hr outings, no dates attached. Mix and match. Each card flags Nonnie-access, wind shelter, parking, hours, contact &amp; a tip. Hours are approximate — call ahead where it matters.</div>
+    <div class="filters" data-day="menu">
+      <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
+      <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
+    </div>
+    <div id="menu-list"></div>
   </section>
 
   <!-- NONNIE GUIDE -->
@@ -295,8 +314,8 @@ const W = {ok:["b-wind-ok","🛡️ Protected"],mid:["b-wind-mid","〰️ Partia
 const days = {
   sun:[
     {t:"Morning",h:"Slow morning at the villa",n:"g",w:"ok",p:"You landed Saturday, so today is for settling. Pool, unpack, ease Nonnie into the island rhythm — no rush."},
-    {t:"Optional",h:"Short flat outing — Kionia or Ktikados",n:"g",w:"ok",extra:["b-flat·Flat + sheltered"],p:"If you want to get out: Kionia's sheltered south-coast beach (~12 min) or a stroll around Ktikados. Keep it brief — the chef starts at 4."},
-    {t:"4:00–8:00 pm · booked",h:"Private chef at the villa",n:"g",w:"ok",booked:1,p:"Chef cooks dinner at the villa — zero logistics, doorstep comfort. The group's anchor evening."}
+    {t:"Optional",h:"Short flat outing — Kionia or Ktikados",n:"g",w:"ok",extra:["b-flat·Flat + sheltered"],p:"If you want to get out: Kionia's sheltered south-coast beach (~12 min) or a stroll around Ktikados. Keep it brief — the chef arrives at 5:30."},
+    {t:"5:30 pm · booked",h:"Private chef at the villa",n:"g",w:"ok",booked:1,p:"Chef arrives 5:30 to cook dinner at the villa — zero logistics, doorstep comfort. The group's anchor evening."}
   ],
   mon:[
     {t:"Late morning",h:"Drive to Hora (~10 min)",n:"g",w:"ok",extra:["b-flat·Flat waterfront"],p:"Park at Tinos Central Parking. Drop Nonnie at the flat waterfront base before parking — same spot for pickup."},
@@ -325,9 +344,90 @@ const days = {
   ]
 };
 
+const menu = [
+  {name:"Hora / Tinos Town", dur:"2–4 hr", n:"a", w:"ok",
+   what:"The port town: waterfront, the famous pilgrimage church, shops, galleries & jewelers, and the Weaving School (the tablecloth).",
+   parking:"Tinos Central Parking, 25is Martiou St (≈08:00–02:00).",
+   hours:"Shops daily; Weaving School shop daytime. Farmers' market does NOT run Sundays.",
+   contact:"Mikro Karavi (flat-courtyard lunch) +30 2283 022818.",
+   tip:"Drop Nonnie at the flat waterfront base before parking. The Weaving School is a gentle slope, not stairs — scout it first."},
+  {name:"Pyrgos (marble village)", dur:"2–3 hr", n:"g", w:"mid",
+   what:"Marble sculptors' workshops & galleries, the Marble Crafts Museum, and a pretty plane-shaded square.",
+   parking:"Entrance lot by the marble bus stop (looks small, opens up behind).",
+   hours:"Marble Museum ~€4, wheelchair-accessible — CLOSED TUESDAYS.",
+   contact:"Marble Crafts Museum +30 2283 031290.",
+   tip:"Anchor Nonnie at the square (~100 m flat) with a coffee; the museum is a steep climb — others only."},
+  {name:"Kardiani village + Bay", dur:"2–3 hr", n:"a", w:"ok",
+   what:"A village clinging to the slope with huge views up top; down at Ormos Giannaki, seafood right on the water at O Ntinos.",
+   parking:"Village entrance (a viewpoint itself); separate flat lot by O Ntinos at the bay.",
+   hours:"Village anytime; O Ntinos lunch & dinner.",
+   contact:"O Ntinos +30 2283 031673 · To Perivoli tis Kardianis +30 2283 031031.",
+   tip:"Keep Nonnie at the TOP viewpoint — don't descend the core. The bay is flat and sheltered from the north wind."},
+  {name:"Volax (moonscape & baskets)", dur:"1.5–2 hr", n:"g", w:"no",
+   what:"A surreal valley of giant round boulders, with basket-weavers' stalls just outside the old core.",
+   parking:"Village edge, ~50–100 m flat to the boulders & stalls.",
+   hours:"Stalls daytime.",
+   contact:"—",
+   tip:"Genuinely Nonnie-friendly (flat). Exposed plateau though — bring a layer, it'll be gusty."},
+  {name:"Tarampados dovecotes", dur:"30–45 min", n:"g", w:"mid",
+   what:"A valley dotted with ornate Tinian dovecotes — the classic photo stop.",
+   parking:"Roadside / valley overlook (~10 min from Ktikados).",
+   hours:"Anytime · free.",
+   contact:"—",
+   tip:"No walking needed — view it from the car. Easy add-on en route to the northwest."},
+  {name:"Isternia Bay (Ormos Isternion)", dur:"2 hr", n:"g", w:"mid",
+   what:"Quiet west-coast bay; Marathia does dry-aged fish, cured tuna and local wines.",
+   parking:"At the harbor; ~2 min flat walk to the beach behind it.",
+   hours:"Lunch onward.",
+   contact:"Marathia +30 2283 023249.",
+   tip:"Flat and easy for Nonnie. West-facing — calmer than the north coast but more open than Kardiani Bay."},
+  {name:"Kionia (seaside, near Hora)", dur:"2–3 hr", n:"g", w:"ok",
+   what:"Sheltered south-coast beach with tavernas; ancient sanctuary ruins nearby.",
+   parking:"Roadside / beach parking (~12 min from base), flat.",
+   hours:"Beach all day; tavernas lunch & dinner.",
+   contact:"Forty One (41) +30 2283 025907.",
+   tip:"The reliable wind-proof beach this week — flat & organized, ideal for Nonnie while others swim."},
+  {name:"Kolymbithra beach", dur:"half-day", n:"g", w:"no",
+   what:"Two north-coast bays — a big surf beach and a small calm cove.",
+   parking:"Beach lot, flat — the most accessible beach on the island.",
+   hours:"All day; organized (sunbeds, showers, toilets).",
+   contact:"—",
+   tip:"WINDY this week (north coast). Use the SMALL cove (calm even in a northerly); skip the big beach."},
+  {name:"Loutra & Falatados", dur:"2–3 hr", n:"a", w:"mid",
+   what:"Loutra: green oasis with Catholic monasteries & a folklore museum. Falatados: raki village with a marble-decorated church.",
+   parking:"Village edges; anchor Nonnie at a flat café.",
+   hours:"Daytime; tavernas for lunch.",
+   contact:"—",
+   tip:"Paved and close to the center-east cluster — easy to pair with Volax."},
+  {name:"Kechrovouni Monastery", dur:"1 hr", n:"r", w:"no",
+   what:"A hilltop working monastery (650 m) built like a mini white village — origin of the Tinos pilgrimage.",
+   parking:"Small dirt lot right at the entrance gate.",
+   hours:"Daytime; modest dress required (long trousers).",
+   contact:"—",
+   tip:"VERIFIED marginal for Nonnie: interior is steep, narrow alleys. Gate-drop only — she waits while others look in."},
+  {name:"Costas Tsoclis Museum (Kambos)", dur:"1 hr", n:"a", w:"ok",
+   what:"Contemporary 'living painting' museum — a quick, low-effort culture stop.",
+   parking:"Village parking; short flat approach.",
+   hours:"Seasonal hours — check before going · free entry.",
+   contact:"—",
+   tip:"Indoors = wind-proof. A good backup for a blustery afternoon."},
+  {name:"Sunset bar above Kardiani", dur:"1.5–2 hr", n:"a", w:"no",
+   what:"Cliff-top bar with an enormous view; cocktails + sushi at golden hour.",
+   parking:"Small / tricky — reserve, and drop Nonnie right at the door.",
+   hours:"Late afternoon → night · reservation recommended.",
+   contact:"+30 694 096 5994.",
+   tip:"High & west-facing = windy. Bring a layer; have a sheltered backup if the meltemi is strong."},
+  {name:"Panormos (seaside village)", dur:"2 hr", n:"g", w:"no",
+   what:"A charming harbor village near Pyrgos with flat waterfront cafés.",
+   parking:"Harbor parking, flat.",
+   hours:"Daytime & evening.",
+   contact:"—",
+   tip:"Flat for Nonnie, but NW-facing and exposed — better on a calmer day."}
+];
+
 const reservations = {
   confirmed:[
-    {name:"Private chef at the villa", when:"Sun Jun 21 · 4:00–8:00 pm", ph:"✓ on calendar"},
+    {name:"Private chef at the villa", when:"Sun Jun 21 · 5:30 pm", ph:"✓ on calendar"},
     {name:"Mikro Karavi — lunch (Hora)", when:"Mon Jun 22 · 2:00 pm", ph:"✓ on calendar"},
     {name:"O Ntinos — dinner (Kardiani Bay)", when:"Tue Jun 23 · 7:00 pm", ph:"✓ on calendar"}
   ],
@@ -360,6 +460,22 @@ function renderDay(key){
   }).join("");
 }
 Object.keys(days).forEach(renderDay);
+
+/* outings menu */
+function mrow(label,val){return val && val!=="—" ? `<div class="mrow"><b>${label}</b><span>${val}</span></div>`:"";}
+document.getElementById("menu-list").innerHTML = menu.map(m=>{
+  const nb=N[m.n], wb=W[m.w];
+  const b = badge("b-dur","⏱ "+m.dur) + badge(nb[0],nb[1]) + badge(wb[0],wb[1]);
+  return `<div class="card" data-n="${m.n}" data-w="${m.w}">
+    <div class="top"><h3>${m.name}</h3></div>
+    <div class="badges">${b}</div>
+    <div class="mwhat">${m.what}</div>
+    ${mrow("Parking",m.parking)}
+    ${mrow("Hours",m.hours)}
+    ${mrow("Contact",m.contact)}
+    ${mrow("Tip",m.tip)}
+  </div>`;
+}).join("");
 
 /* reservations */
 document.getElementById("res-confirmed").innerHTML = reservations.confirmed.map(r=>
