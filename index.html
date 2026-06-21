@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinos — 4 Nights</title>
+<style>
+  :root{
+    color-scheme: light;
+    --sea:#1f7a9c; --sea-deep:#0d5f7d; --foam:#e8f3f7; --sand:#f5efe3;
+    --ink:#1c2a33; --muted:#5d6f7a; --line:#dce5ea; --card:#ffffff; --bg:#f3f6f8;
+    --green:#2e9e6b; --green-bg:#e6f5ee;
+    --amber:#c98a18; --amber-bg:#fbf1da;
+    --red:#cf5638; --red-bg:#fbe7e0;
+    --shadow:0 1px 3px rgba(20,50,70,.08),0 6px 20px rgba(20,50,70,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--sea-deep)}
+  header.hero{background:linear-gradient(135deg,var(--sea-deep),var(--sea));color:#fff;
+    padding:26px 20px 20px;text-align:center}
+  header.hero h1{margin:0;font-size:1.7rem;letter-spacing:.3px}
+  header.hero .sub{opacity:.92;font-size:.95rem;margin-top:4px}
+  header.hero .meta{opacity:.8;font-size:.8rem;margin-top:8px}
+
+  nav.tabs{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.97);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
+    display:flex;gap:4px;overflow-x:auto;padding:8px 10px;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs button{flex:0 0 auto;border:1px solid transparent;background:transparent;
+    color:var(--muted);font-size:.9rem;font-weight:600;padding:8px 13px;border-radius:999px;
+    cursor:pointer;white-space:nowrap;transition:.15s}
+  nav.tabs button:hover{color:var(--ink);background:var(--foam)}
+  nav.tabs button.active{background:var(--sea);color:#fff}
+
+  main{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+  .panel{display:none;animation:fade .25s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  h2.section{font-size:1.15rem;margin:6px 0 2px;display:flex;align-items:center;gap:9px}
+  .daydate{color:var(--muted);font-size:.85rem;font-weight:600;margin-bottom:14px}
+  .lede{background:var(--foam);border-left:4px solid var(--sea);border-radius:8px;
+    padding:11px 14px;margin:0 0 16px;font-size:.92rem}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;margin-bottom:11px;box-shadow:var(--shadow)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .card h3{margin:0;font-size:1.02rem}
+  .card .time{font-size:.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;
+    letter-spacing:.4px;margin-bottom:3px}
+  .card p{margin:8px 0 0;font-size:.9rem;color:#36464f}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .badge{font-size:.74rem;font-weight:700;padding:3px 9px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+  .b-green{background:var(--green-bg);color:#1c6b46}
+  .b-amber{background:var(--amber-bg);color:#8a5e08}
+  .b-red{background:var(--red-bg);color:#9c3a22}
+  .b-wind-ok{background:#e7f0ec;color:#2c6b50}
+  .b-wind-mid{background:#fbf1da;color:#8a6510}
+  .b-wind-no{background:#e9eef1;color:#51606a}
+  .b-flat{background:#eef2f4;color:#48606c}
+  .b-res{background:#efe7f6;color:#6b3e9b}
+
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+  .filters label{display:inline-flex;align-items:center;gap:7px;font-size:.85rem;
+    background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;
+    user-select:none;font-weight:600;color:var(--muted)}
+  .filters input{accent-color:var(--sea)}
+
+  .legendgrid{display:grid;grid-template-columns:1fr;gap:10px}
+  .legendrow{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+  .legendrow b{display:block;margin-bottom:3px;font-size:.9rem}
+  .legendrow span{font-size:.85rem;color:var(--muted)}
+
+  .tierlist{margin:14px 0 0}
+  .tierhead{font-weight:800;font-size:.95rem;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+  .pill{display:inline-block;font-size:.8rem;padding:6px 10px;margin:0 6px 6px 0;border-radius:8px;
+    background:#fff;border:1px solid var(--line);font-weight:600}
+  .pill.g{border-left:4px solid var(--green)}
+  .pill.a{border-left:4px solid var(--amber)}
+  .pill.r{border-left:4px solid var(--red)}
+
+  .keyrow{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+  .keyrow:last-child{border-bottom:none}
+  .keyrow .ic{font-size:1.1rem;flex:0 0 auto}
+  .keyrow .tx b{font-size:.92rem}.keyrow .tx span{font-size:.84rem;color:var(--muted)}
+
+  ul.res{list-style:none;padding:0;margin:8px 0 0}
+  ul.res li{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.9rem}
+  ul.res li input{width:18px;height:18px;accent-color:var(--green);flex:0 0 auto;cursor:pointer}
+  ul.res li.done label{text-decoration:line-through;color:var(--muted)}
+  ul.res li .ph{margin-left:auto;font-size:.82rem;color:var(--sea-deep);font-weight:600;white-space:nowrap}
+  ul.res li label{cursor:pointer;flex:1}
+
+  .tip{font-size:.82rem;color:var(--muted);margin-top:14px;text-align:center}
+  .hideme{display:none!important}
+  footer{text-align:center;color:var(--muted);font-size:.78rem;padding:22px 16px 40px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🇬🇷 Tinos — Four Nights</h1>
+  <div class="sub">Cyclades family trip · base in Ktikados</div>
+  <div class="meta">Sun Jun 21 → Thu Jun 25, 2026 · two rental cars · party of 6</div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="overview" class="active">Overview</button>
+  <button data-tab="sun">Sun 21</button>
+  <button data-tab="mon">Mon 22</button>
+  <button data-tab="tue">Tue 23</button>
+  <button data-tab="wed">Wed 24</button>
+  <button data-tab="thu">Thu 25</button>
+  <button data-tab="nonnie">♿ Nonnie</button>
+  <button data-tab="wind">🌬️ Wind</button>
+  <button data-tab="res">📞 Reserve</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="overview">
+    <div class="lede"><b>The whole trip in one idea:</b> the two cars are Nonnie's mobility system. At every stair-maze village, one car drops her at a flat anchor and stays; the other parks so the roamers can explore. One gentle "active" stop per day for her, with Wednesday as a rest day.</div>
+
+    <h2 class="section">How to read the badges</h2>
+    <div class="legendgrid">
+      <div class="legendrow"><b>🟢 Full · 🟡 Drop &amp; anchor · 🔴 Others only</b><span>How each stop works for Nonnie (limited walking — short distances only).</span></div>
+      <div class="legendrow"><b>🛡️ Protected · 〰️ Partial · 🌬️ Exposed</b><span>Shelter from the north wind (meltemi). It's a windy week — south &amp; SW coasts stay calm; the north coast gets hit.</span></div>
+    </div>
+
+    <h2 class="section" style="margin-top:22px">The four days at a glance</h2>
+    <div class="card"><div class="time">Sun 21</div><h3>Hora + the tablecloth errand</h3><p>Ease-in day. Weaving-school errand first while everyone's fresh, flat-courtyard lunch, private chef at the villa tonight.</p></div>
+    <div class="card"><div class="time">Mon 22 · biggest day</div><h3>The Northwest Loop</h3><p>Dovecotes overlook → Pyrgos marble village → seaside lunch → Kardiani viewpoint → sunset. Lean hardest on the two-car split today.</p></div>
+    <div class="card"><div class="time">Tue 23 · gentlest</div><h3>Center-East cluster</h3><p>All paved, stops close together. Volax moonscape → villages → a sheltered beach finish.</p></div>
+    <div class="card"><div class="time">Wed 24 · rest</div><h3>Slow day + special dinner</h3><p>Pool morning, optional flat seaside lunch, recover before the special dinner.</p></div>
+    <div class="card"><div class="time">Thu 25</div><h3>Departure</h3><p>Pack + travel out. One last waterfront coffee if time allows.</p></div>
+    <p class="tip">Tap the day tabs above for the hour-by-hour plan with badges.</p>
+  </section>
+
+  <!-- SUNDAY -->
+  <section class="panel" id="sun">
+    <h2 class="section">☀️ Sunday — Hora &amp; the tablecloth</h2>
+    <div class="daydate">June 21 · ease-in day · chef at the villa tonight</div>
+    <div class="lede">Nonnie's biggest "active" moment of the trip — do the errand first while energy is high, then anchor her on the flat waterfront.</div>
+    <div class="filters" data-day="sun">
+      <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
+      <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
+    </div>
+    <div id="sun-list"></div>
+  </section>
+
+  <!-- MONDAY -->
+  <section class="panel" id="mon">
+    <h2 class="section">🚗 Monday — Northwest Loop</h2>
+    <div class="daydate">June 22 · the big day · home after sunset</div>
+    <div class="lede">Longest day for Nonnie — pace it. This is the day to use two cars hardest so the roamers aren't bottlenecked.</div>
+    <div class="filters" data-day="mon">
+      <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
+      <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
+    </div>
+    <div id="mon-list"></div>
+  </section>
+
+  <!-- TUESDAY -->
+  <section class="panel" id="tue">
+    <h2 class="section">🌋 Tuesday — Center-East cluster</h2>
+    <div class="daydate">June 23 · gentlest big day · all paved</div>
+    <div class="lede">Stops are close together and flat-ish. Save the beach for a sheltered spot — the famous north-coast beach will be blown out this week.</div>
+    <div class="filters" data-day="tue">
+      <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
+      <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
+    </div>
+    <div id="tue-list"></div>
+  </section>
+
+  <!-- WEDNESDAY -->
+  <section class="panel" id="wed">
+    <h2 class="section">🏊 Wednesday — Slow day</h2>
+    <div class="daydate">June 24 · rest + special dinner</div>
+    <div class="lede">Recovery day by design. At most one flat seaside outing; everyone rests for the special dinner.</div>
+    <div class="filters" data-day="wed">
+      <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
+      <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
+    </div>
+    <div id="wed-list"></div>
+  </section>
+
+  <!-- THURSDAY -->
+  <section class="panel" id="thu">
+    <h2 class="section">✈️ Thursday — Departure</h2>
+    <div class="daydate">June 25 · pack &amp; travel out</div>
+    <div id="thu-list"></div>
+  </section>
+
+  <!-- NONNIE GUIDE -->
+  <section class="panel" id="nonnie">
+    <h2 class="section">♿ The Nonnie guide</h2>
+    <div class="lede">Nonnie can walk only very short distances. The pattern everywhere: <b>drop her close, anchor at a flat terrace or square, let others roam</b> the stair-mazes. Every stop below is pre-sorted.</div>
+
+    <div class="keyrow"><div class="ic">🟢</div><div class="tx"><b>Full — she comes all the way</b><span>Flat ground, short walk, a comfortable seat to settle into.</span></div></div>
+    <div class="keyrow"><div class="ic">🟡</div><div class="tx"><b>Drop &amp; anchor — one spot, slowly</b><span>She comes but to a single anchor; scout ahead, walk her slowly or bring choices to her.</span></div></div>
+    <div class="keyrow"><div class="ic">🔴</div><div class="tx"><b>Others only — she waits at the edge</b><span>Sloped cores / stairs. Keep her at the entrance overlook or in the car.</span></div></div>
+
+    <div class="tierhead">🟢 She's fully in</div>
+    <div>
+      <span class="pill g">Hora waterfront</span><span class="pill g">Kionia beach (flat, sheltered)</span>
+      <span class="pill g">Small Kolymbithra cove</span><span class="pill g">Volax moonscape + baskets</span>
+      <span class="pill g">Pyrgos main square</span><span class="pill g">Kardiani Bay seaside</span>
+      <span class="pill g">Isternia Bay</span><span class="pill g">Dovecotes roadside overlook</span>
+      <span class="pill g">Ktikados dinners (doorstep)</span>
+    </div>
+
+    <div class="tierhead">🟡 Drop &amp; anchor</div>
+    <div>
+      <span class="pill a">Weaving-school / tablecloth errand — gentle slope, not stairs; scout first</span>
+      <span class="pill a">Hora church — drive up, drop near the top entrance</span>
+      <span class="pill a">Sunset bar above Kardiani — only if dropped at the door</span>
+    </div>
+
+    <div class="tierhead">🔴 Others only — she stays at the edge</div>
+    <div>
+      <span class="pill r">Kardiani village core (stay top viewpoint)</span>
+      <span class="pill r">Isternia village core (entrance overlook)</span>
+      <span class="pill r">Hilltop monastery interior (gate-drop only)</span>
+      <span class="pill r">Pyrgos marble museum (steep climb)</span>
+      <span class="pill r">Remote NE beach — skip entirely</span>
+    </div>
+
+    <div class="lede" style="margin-top:20px"><b>Parking &amp; drop cheat-sheet:</b> Hora — drop at the flat waterfront base before parking. Pyrgos — ~100 m level to the square. Kardiani — village entrance is itself the viewpoint; don't descend. Kardiani Bay — ~20–40 m flat. Volax — ~50–100 m flat. Kionia / sheltered beaches — flat, organized.</div>
+  </section>
+
+  <!-- WIND GUIDE -->
+  <section class="panel" id="wind">
+    <h2 class="section">🌬️ The wind guide</h2>
+    <div class="lede">The meltemi blows from the <b>north / northeast</b>. Simple rule: <b>south &amp; southwest coasts stay calm; the north coast gets hammered.</b> It's a windy week, so favour the sheltered list.</div>
+
+    <div class="tierhead">🛡️ Most protected — go here</div>
+    <div>
+      <span class="pill g">Kionia (SW, near Hora) — flat + sheltered</span>
+      <span class="pill g">Agios Sostis / Agios Romanos / Agios Ioannis Porto (south bays)</span>
+      <span class="pill g">Kardiani Bay (Ormos Giannaki) — named protected</span>
+      <span class="pill g">Small Kolymbithra cove — calm even in a strong northerly</span>
+      <span class="pill g">Hora waterfront &amp; Ktikados (villa + dinners)</span>
+    </div>
+
+    <div class="tierhead">〰️ Partial / breezy but fine</div>
+    <div>
+      <span class="pill a">Isternia Bay — west-facing cove</span>
+      <span class="pill a">Pyrgos square — gusty, fine for a seated coffee</span>
+    </div>
+
+    <div class="tierhead">🌬️ Exposed — expect strong wind</div>
+    <div>
+      <span class="pill r">Big Kolymbithra &amp; Panormos (north coast — surf beaches)</span>
+      <span class="pill r">Sunset bar above Kardiani — high &amp; west-facing; have a backup</span>
+      <span class="pill r">Volax plateau &amp; hilltop monastery — bring a layer</span>
+      <span class="pill r">Remote NE beach — brutal, skip</span>
+    </div>
+
+    <div class="lede" style="margin-top:20px"><b>The one swap it forces:</b> don't count on big Kolymbithra for Tuesday's beach. Use the <b>small Kolymbithra cove</b>, or move the beach moment to <b>Wednesday at Kionia</b> — sheltered, flat, and reliable all week.</div>
+  </section>
+
+  <!-- RESERVATIONS -->
+  <section class="panel" id="res">
+    <h2 class="section">📞 Reservations to place</h2>
+    <div class="lede">Tap to check off as you call. Saved on this device.</div>
+    <ul class="res" id="reslist"></ul>
+    <p class="tip">Numbers are the venues' public booking lines.</p>
+  </section>
+
+</main>
+
+<footer>Built for the Tinos trip · June 2026 · names kept private</footer>
+
+<script>
+/* ---------- DATA ---------- */
+const N = {g:["b-green","🟢 Full"],a:["b-amber","🟡 Drop & anchor"],r:["b-red","🔴 Others only"]};
+const W = {ok:["b-wind-ok","🛡️ Protected"],mid:["b-wind-mid","〰️ Partial"],no:["b-wind-no","🌬️ Exposed"]};
+
+const days = {
+  sun:[
+    {t:"Late morning",h:"Drive to Hora (~10 min)",n:"g",w:"ok",extra:["b-flat·Flat waterfront"],p:"Park at Tinos Central Parking. Drop Nonnie at the flat waterfront base of the pedestrian street before parking — same spot for pickup."},
+    {t:"First, while fresh",h:"Weaving-school / tablecloth errand",n:"a",w:"ok",res:1,p:"The heirloom tablecloth mission. Gentle slope up the pedestrian street — not stairs. Scout ahead: one person confirms, then walk her up slowly or bring choices down to the flat base."},
+    {t:"Lunch",h:"Flat-courtyard lunch in Hora",n:"g",w:"ok",res:1,p:"Mikro Karavi (flat courtyard) or an easy central bistro. Others browse the galleries & jewelers nearby."},
+    {t:"Optional",h:"Church drive-up",n:"a",w:"mid",p:"Drive up and drop near the top entrance so she skips the climb."},
+    {t:"Evening",h:"Private chef at the villa",n:"g",w:"ok",p:"No dinner logistics tonight. Doorstep comfort after the first day out."}
+  ],
+  mon:[
+    {t:"On the way out",h:"Dovecotes valley overlook",n:"g",w:"mid",extra:["b-flat·No walking"],p:"Roadside / valley overlook ~10 min from base. Stay in the car — a quick photo stop."},
+    {t:"Stop 1",h:"Pyrgos — marble village",n:"g",w:"mid",res:1,p:"Anchor Nonnie at the main square with a coffee (kafeneio). Roamers do the marble workshops & galleries. NOTE: the marble museum is a steep climb — others only, and it's closed Tuesdays (fine, we're here today)."},
+    {t:"Lunch",h:"Seaside lunch — Isternia Bay or Kardiani Bay",n:"g",w:"ok",res:1,p:"Both flat waterfront. Kardiani Bay (O Ntinos) is specifically sheltered from the north wind and has lots of gluten-free — the safer pick on a windy day."},
+    {t:"Viewpoint",h:"Kardiani village — top only",n:"r",w:"mid",p:"Stay at the top entrance viewpoint (~30–50 m). Do NOT descend into the sloped core. Roamers can wander the stair-maze."},
+    {t:"Sunset",h:"Sunset bar above Kardiani",n:"a",w:"no",res:1,p:"Huge view, cocktails. High & west-facing so it can be windy — reserve, drop her at the door, bring a layer. Have a sheltered backup if the meltemi is strong."}
+  ],
+  tue:[
+    {t:"Stop 1",h:"Volax — moonscape & baskets",n:"g",w:"no",extra:["b-flat·~50–100 m flat"],p:"Flat walk to the giant boulders & basket-weavers' stalls. Genuinely good for Nonnie. Breezy on the plateau — bring a layer, but no swell to worry about."},
+    {t:"Stop 2",h:"Loutra & Falatados villages",n:"a",w:"mid",p:"Green oasis + raki village. Anchor her at a flat café; others wander."},
+    {t:"Optional",h:"Hilltop monastery",n:"r",w:"no",p:"VERIFIED marginal: park at the gate, but the interior is narrow alleys & uneven courtyards on a steep slope. Drive her to the entrance, she waits, others do a quick look. Only if energy is high."},
+    {t:"Beach finish",h:"Sheltered cove (NOT big Kolymbithra)",n:"g",w:"ok",p:"Big Kolymbithra is north-coast and will be blown out. Use the small Kolymbithra cove (calm even in a northerly) — or save the beach for Wednesday at Kionia."},
+    {t:"Dinner",h:"Easy & close — near the villa",n:"g",w:"ok",res:1,p:"Creative, gluten-aware option near base, or a Ktikados doorstep dinner."}
+  ],
+  wed:[
+    {t:"Morning",h:"Pool / villa — rest",n:"g",w:"ok",p:"Slow start by design. Recovery before the special dinner."},
+    {t:"Optional lunch",h:"Kionia seaside (~12 min)",n:"g",w:"ok",extra:["b-flat·Flat + sheltered"],p:"South-coast, sheltered and flat — the reliable windproof beach for the week. Skip if Tuesday's beach already scratched the itch."},
+    {t:"Optional culture",h:"Contemporary art museum at Kambos",n:"a",w:"ok",p:"Free, low-effort. Good for the art-lovers; easy for a short visit."},
+    {t:"Special dinner",h:"Top-rated seafood, Hora",n:"g",w:"ok",res:1,p:"The trip's special meal. ~30 m flat for Nonnie. Reserve ahead."}
+  ],
+  thu:[
+    {t:"Morning",h:"Pack & travel out",n:"g",w:"ok",p:"Departure day."},
+    {t:"If time",h:"Last waterfront coffee in Hora",n:"g",w:"ok",p:"Flat, easy, a calm send-off on the sheltered south-facing waterfront."}
+  ]
+};
+
+const reservations = [
+  {name:"Weaving-school shop (the tablecloth)", ph:"open daily"},
+  {name:"Kardiani Bay seafood — O Ntinos", ph:"+30 2283 031673"},
+  {name:"Sunset bar above Kardiani", ph:"+30 694 096 5994"},
+  {name:"Isternia Bay — Marathia", ph:"+30 2283 023249"},
+  {name:"Special dinner — Scorpina, Hora", ph:"+30 2283 026955"},
+  {name:"Ktikados — Rakizio", ph:"+30 2283 110345"},
+  {name:"Ktikados — Drosia (sunset)", ph:"+30 2283 021087"},
+  {name:"Veneranda (creative, GF-aware)", ph:"+30 2283 051595"}
+];
+
+/* ---------- RENDER ---------- */
+function badge(cls,txt){return `<span class="badge ${cls}">${txt}</span>`;}
+function extraBadge(s){const[c,t]=s.split("·");return `<span class="badge ${c}">${t}</span>`;}
+
+function renderDay(key){
+  const wrap=document.getElementById(key+"-list");
+  wrap.innerHTML = days[key].map((s,i)=>{
+    const nb=N[s.n], wb=W[s.w];
+    let b = badge(nb[0],nb[1]) + badge(wb[0],wb[1]);
+    if(s.extra) b += s.extra.map(extraBadge).join("");
+    if(s.res) b += badge("b-res","📞 reserve");
+    return `<div class="card" data-n="${s.n}" data-w="${s.w}">
+      <div class="time">${s.t}</div>
+      <div class="top"><h3>${s.h}</h3></div>
+      <p>${s.p}</p>
+      <div class="badges">${b}</div>
+    </div>`;
+  }).join("");
+}
+Object.keys(days).forEach(renderDay);
+
+/* reservations with localStorage */
+const RL=document.getElementById("reslist");
+let saved={};
+try{saved=JSON.parse(localStorage.getItem("tinos-res")||"{}");}catch(e){}
+RL.innerHTML=reservations.map((r,i)=>{
+  const done=saved[i]?"done":"";
+  return `<li class="${done}"><input type="checkbox" data-i="${i}" ${saved[i]?"checked":""}>
+    <label>${r.name}</label><span class="ph">${r.ph}</span></li>`;
+}).join("");
+RL.addEventListener("change",e=>{
+  if(e.target.type!=="checkbox")return;
+  const i=e.target.dataset.i; saved[i]=e.target.checked;
+  e.target.closest("li").classList.toggle("done",e.target.checked);
+  try{localStorage.setItem("tinos-res",JSON.stringify(saved));}catch(e){}
+});
+
+/* ---------- TABS ---------- */
+const tabs=document.getElementById("tabs");
+tabs.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b)return;
+  tabs.querySelectorAll("button").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  document.getElementById(b.dataset.tab).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* ---------- FILTERS ---------- */
+document.querySelectorAll(".filters").forEach(f=>{
+  f.addEventListener("change",()=>{
+    const day=f.dataset.day;
+    const onlyN=f.querySelector(".f-nonnie").checked;
+    const onlyW=f.querySelector(".f-wind").checked;
+    document.querySelectorAll(`#${day}-list .card`).forEach(c=>{
+      let show=true;
+      if(onlyN && c.dataset.n==="r") show=false;
+      if(onlyW && c.dataset.w==="no") show=false;
+      c.classList.toggle("hideme",!show);
+    });
+  });
+});
+</script>
+</body>
+</html>
