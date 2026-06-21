@@ -90,11 +90,16 @@
   .keyrow .ic{font-size:1.1rem;flex:0 0 auto}
   .keyrow .tx b{font-size:.92rem}.keyrow .tx span{font-size:.84rem;color:var(--muted)}
 
-  /* menu info rows */
-  .mrow{display:flex;gap:8px;font-size:.85rem;margin-top:7px;align-items:baseline}
-  .mrow b{flex:0 0 76px;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:.7rem;letter-spacing:.4px;padding-top:1px}
+  /* menu cards */
+  .mwhat{font-size:.92rem;color:#2b3a43;margin-top:10px;line-height:1.55}
+  .mpoi{margin-top:12px;background:#f7fafb;border:1px solid var(--line);border-radius:9px;padding:10px 13px}
+  .mpoi b{display:block;text-transform:uppercase;font-size:.7rem;letter-spacing:.5px;color:var(--sea-deep);font-weight:800;margin-bottom:6px}
+  .mpoi ul{margin:0;padding-left:17px}
+  .mpoi li{font-size:.865rem;color:#36464f;margin-bottom:5px;line-height:1.45}
+  .mpoi li:last-child{margin-bottom:0}
+  .mrow{display:flex;gap:8px;font-size:.85rem;margin-top:9px;align-items:baseline}
+  .mrow b{flex:0 0 72px;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:.68rem;letter-spacing:.4px;padding-top:1px}
   .mrow span{flex:1;color:#36464f}
-  .mwhat{font-size:.92rem;color:#2b3a43;margin-top:8px}
 
   ul.res{list-style:none;padding:0;margin:8px 0 0}
   ul.res li{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);
@@ -215,7 +220,7 @@
   <!-- OUTINGS MENU -->
   <section class="panel" id="menu">
     <h2 class="section">🧭 Outings — à la carte</h2>
-    <div class="lede">A menu of 1–4 hr outings, no dates attached. Mix and match. Each card flags Nonnie-access, wind shelter, parking, hours, contact &amp; a tip. Hours are approximate — call ahead where it matters.</div>
+    <div class="lede">A menu of 1–4 hr outings, no dates attached. Mix and match. Each card has a fuller description, a "make the most of it" list of what to actually see, plus Nonnie-access, wind shelter, parking, hours, contact &amp; a tip. Hours are approximate — call ahead where it matters.</div>
     <div class="filters" data-day="menu">
       <label><input type="checkbox" class="f-nonnie"> Nonnie-friendly only</label>
       <label><input type="checkbox" class="f-wind"> Wind-protected only</label>
@@ -346,83 +351,108 @@ const days = {
 
 const menu = [
   {name:"Hora / Tinos Town", dur:"2–4 hr", n:"a", w:"ok",
-   what:"The port town: waterfront, the famous pilgrimage church, shops, galleries & jewelers, and the Weaving School (the tablecloth).",
+   what:"Tinos's port capital and the spiritual heart of the island. From the flat waterfront, the marble-paved Evangelistrias street climbs gently to the great Church of Panagia Evangelistria — the most important pilgrimage site in the Cyclades, famed for its miracle-working icon. Packed into the lanes around it is a dense, walkable knot of galleries, silver jewelers, craft shops and tavernas, plus a small but worthwhile Archaeological Museum. The south-facing waterfront stays sheltered from the meltemi, which makes it the natural anchor for Nonnie while everyone else roams uphill.",
+   pois:["Church of Panagia Evangelistria — the icon &amp; marble courtyard; drive up Megalochari and drop at the top entrance so Nonnie skips the climb","The Weaving School shop, partway up Evangelistrias — handmade hand-embroidered tablecloths &amp; linens (the errand)","Silver jewelers (Artemis, Harris Prassas / Ostria) and the Tinos Cooperative for island crafts","Archaeological Museum — small; holds the scale model that makes sense of the Kionia Poseidon sanctuary","Edible souvenirs: thyme honey, kopanisti cheese, mandolato nougat","Lunch on the flat waterfront — Mikro Karavi (booked Mon) or a central bistro"],
    parking:"Tinos Central Parking, 25is Martiou St (≈08:00–02:00).",
    hours:"Shops daily; Weaving School shop daytime. Farmers' market does NOT run Sundays.",
    contact:"Mikro Karavi (flat-courtyard lunch) +30 2283 022818.",
-   tip:"Drop Nonnie at the flat waterfront base before parking. The Weaving School is a gentle slope, not stairs — scout it first."},
+   tip:"Drop Nonnie at the flat waterfront base before you park. The Weaving School is a gentle slope, not stairs — send one person ahead to scout, then walk her up slowly or bring choices down to her."},
+
   {name:"Pyrgos (marble village)", dur:"2–3 hr", n:"g", w:"mid",
-   what:"Marble sculptors' workshops & galleries, the Marble Crafts Museum, and a pretty plane-shaded square.",
+   what:"The largest and arguably most beautiful village on Tinos, and the marble-carving capital of the Cyclades — birthplace of the legendary sculptor Giannoulis Halepas and a whole lineage of Greek artists. Marble is genuinely everywhere here: door frames, fountains, the churches, even the headstones in the cemetery. The plane-shaded main square is the social heart and your Nonnie anchor; the lanes spiralling off it hide still-working sculpture workshops and three small, excellent museums. It's a place to wander slowly, coffee in hand.",
+   pois:["The main square under its two giant plane trees — coffee &amp; homemade sweets (Nonnie's anchor, ~100 m flat)","Museum of Marble Crafts — marble from quarry to sculpture; wheelchair-accessible, ~€4 — CLOSED TUESDAYS","Giannoulis Halepas Museum — the great sculptor's own house","Museum of Tinian Artists — works by Halepas, Filippotis, Sochos, Vitalis","Working sculpture workshops along the main street — watch carvers; short marble classes can be arranged","Churches of Agios Nikolaos &amp; Agios Dimitrios and the cemetery — masterful marble decoration","Buy a small carved piece — white or the signature Tinian green marble"],
    parking:"Entrance lot by the marble bus stop (looks small, opens up behind).",
    hours:"Marble Museum ~€4, wheelchair-accessible — CLOSED TUESDAYS.",
-   contact:"Marble Crafts Museum +30 2283 031290.",
-   tip:"Anchor Nonnie at the square (~100 m flat) with a coffee; the museum is a steep climb — others only."},
+   contact:"Museum of Marble Crafts +30 2283 031290.",
+   tip:"Anchor Nonnie at the square with a coffee; the museum sits up a steep climb, so that's an others-only side trip."},
+
   {name:"Kardiani village + Bay", dur:"2–3 hr", n:"a", w:"ok",
-   what:"A village clinging to the slope with huge views up top; down at Ormos Giannaki, seafood right on the water at O Ntinos.",
-   parking:"Village entrance (a viewpoint itself); separate flat lot by O Ntinos at the bay.",
-   hours:"Village anytime; O Ntinos lunch & dinner.",
+   what:"One of the loveliest villages on Tinos, spilling down the green slopes of Mt Pateles with a little river running through it, marble fountains at every spring and deep plane-tree shade. The reward up top is a breathtaking sea view toward Syros — especially at sunset. Below, Ormos Giannaki (Kardiani Bay) is a sand-and-pebble cove whose waters stay unusually sheltered from the summer meltemi, fronted by some of the best seaside tavernas on the island. Keep Nonnie up top at the viewpoint, then drive down to the flat bay.",
+   pois:["The top entrance viewpoint — the panorama toward Syros, best near sunset (Nonnie's anchor; don't descend the core)","Marble fountains &amp; springs along the paved alleys (roamers)","Holy Trinity (Orthodox) church and the five-storey marble bell tower of the Catholic Annunciation church","Ormos Giannaki / Kardiani Bay — flat waterfront, sheltered swim, and O Ntinos seafood (booked Tue 7pm)","To Perivoli tis Kardianis — a village-side dining alternative"],
+   parking:"Village entrance (a viewpoint itself); separate flat lot by O Ntinos down at the bay.",
+   hours:"Village anytime; O Ntinos lunch &amp; dinner.",
    contact:"O Ntinos +30 2283 031673 · To Perivoli tis Kardianis +30 2283 031031.",
-   tip:"Keep Nonnie at the TOP viewpoint — don't descend the core. The bay is flat and sheltered from the north wind."},
+   tip:"The village core is steep stairs — keep Nonnie at the top viewpoint, then drive her down to the bay separately. The bay is flat and wind-sheltered."},
+
   {name:"Volax (moonscape & baskets)", dur:"1.5–2 hr", n:"g", w:"no",
-   what:"A surreal valley of giant round boulders, with basket-weavers' stalls just outside the old core.",
-   parking:"Village edge, ~50–100 m flat to the boulders & stalls.",
-   hours:"Stalls daytime.",
+   what:"A village set on a high central plateau and ringed by a surreal field of spherical granite boulders — a genuine lunar landscape, so strange that some houses are built right into the rocks. Volax has kept a living basket-weaving tradition you can still watch in the workshops, and because its core is flat and easy it's one of the most Nonnie-friendly stops on Tinos. Bouldering climbers come for the rocks, and a little stone amphitheatre stages performances in summer.",
+   pois:["The boulder field — a flat, easy walk among the giant rocks (great for Nonnie)","Basket-weavers' workshops — watch the craft and buy a hand-woven willow basket (also dried herbs, olive oil)","The 380-seat open-air stone amphitheatre — check whether a summer concert/play is on","Volax Folklore Museum — ~250 objects of 19th–20th-century island life","The town spring at the bottom of the village — channels where weavers soak their reeds (down a short flight of steps; roamers)"],
+   parking:"Village edge, ~50–100 m flat to the boulders &amp; stalls.",
+   hours:"Stalls &amp; workshops daytime; museum hours vary.",
    contact:"—",
-   tip:"Genuinely Nonnie-friendly (flat). Exposed plateau though — bring a layer, it'll be gusty."},
+   tip:"Genuinely Nonnie-friendly on the flat. It's an exposed plateau though — bring a layer, it'll be gusty (no swell to worry about, just wind)."},
+
   {name:"Tarampados dovecotes", dur:"30–45 min", n:"g", w:"mid",
-   what:"A valley dotted with ornate Tinian dovecotes — the classic photo stop.",
+   what:"Tinos is the island of dovecotes — ornate two-storey stone towers with intricate lacework facades, a craft the Venetians introduced — and the Tarampados valley holds the best-preserved cluster of them anywhere on the island. Because it's a roadside and valley overlook you can take the whole scene in without leaving the car, which makes it the perfect low-effort, high-reward add-on on the drive out to the northwest.",
+   pois:["The valley viewpoint — dozens of carved dovecotes spread across the green slope (no walking needed)","A short marked footpath drops down among the towers for anyone wanting a closer look","Slots in perfectly as the first stop en route to Pyrgos / Kardiani"],
    parking:"Roadside / valley overlook (~10 min from Ktikados).",
    hours:"Anytime · free.",
    contact:"—",
-   tip:"No walking needed — view it from the car. Easy add-on en route to the northwest."},
+   tip:"View it straight from the car — zero walking. The richest light is mid-morning or late afternoon."},
+
   {name:"Isternia Bay (Ormos Isternion)", dur:"2 hr", n:"g", w:"mid",
-   what:"Quiet west-coast bay; Marathia does dry-aged fish, cured tuna and local wines.",
+   what:"A quiet west-coast bay sitting below the marble village of Isternia (itself worth a slow drive-through for its sundial, marble-trimmed houses and sea views). The bay is flat and easy, with a small beach and a couple of well-regarded tavernas — Marathia is the standout, known for dry-aged fish, cured tuna and a thoughtful local wine list. Being west-facing it's calmer than the north coast but a touch more open than deeply-tucked Kardiani Bay, so it's a fine fair-weather lunch stop.",
+   pois:["Ormos Isternion beach — flat, ~2 min from the harbor parking","Marathia taverna — dry-aged fish, cured tuna, local wines","Isternia village above — marble sundial, ornate houses and an overlook (others; keep Nonnie at the bay)","Sunset over Syros from the west-facing shore"],
    parking:"At the harbor; ~2 min flat walk to the beach behind it.",
-   hours:"Lunch onward.",
+   hours:"Tavernas lunch onward.",
    contact:"Marathia +30 2283 023249.",
-   tip:"Flat and easy for Nonnie. West-facing — calmer than the north coast but more open than Kardiani Bay."},
+   tip:"Flat and easy for Nonnie at the bay. Save the village above for the roamers — it climbs."},
+
   {name:"Kionia (seaside, near Hora)", dur:"2–3 hr", n:"g", w:"ok",
-   what:"Sheltered south-coast beach with tavernas; ancient sanctuary ruins nearby.",
+   what:"The closest sheltered beach to Hora (about 3 km northwest), backed by tavernas and — right beside the sand — the excavated Sanctuary of Poseidon and Amphitrite, the only place in the Cyclades to dedicate an entire temple to the sea god, active from the 4th century BC. With flat ground and dependable south-coast shelter, it's the reliable wind-proof beach this week, and it lets you fold a swim, a genuine ancient ruin and a long seaside lunch into one easy outing.",
+   pois:["Sanctuary of Poseidon &amp; Amphitrite — foundations of temples, altars, a 170 m portico, fountains and baths (pick up the pamphlet; the scale model lives in Hora's Archaeological Museum)","Kionia beach — flat &amp; organized; ideal for Nonnie to settle while others swim","Beachfront tavernas on the sand — Tsampiá or Forty One (41)","Easy to pair with Hora, since it's only minutes away"],
    parking:"Roadside / beach parking (~12 min from base), flat.",
-   hours:"Beach all day; tavernas lunch & dinner.",
+   hours:"Beach all day; sanctuary is an open site (best with the admission pamphlet); tavernas lunch &amp; dinner.",
    contact:"Forty One (41) +30 2283 025907.",
-   tip:"The reliable wind-proof beach this week — flat & organized, ideal for Nonnie while others swim."},
+   tip:"This is your dependable wind-proof beach this week — flat, organized and close to town."},
+
   {name:"Kolymbithra beach", dur:"half-day", n:"g", w:"no",
-   what:"Two north-coast bays — a big surf beach and a small calm cove.",
+   what:"The island's most famous beach sits on the north coast and is really two bays. Megali Ammos is the big surf beach, with a surf school and reliable meltemi swell; Mikri Ammos is the smaller, livelier, more sheltered cove with sunbeds, tavernas and a volleyball court. Behind them lies a reed wetland and a small freshwater lake that draws ducks, turtles and migratory birds. It's beautiful and fully organized, but exposed by nature — this week, head straight for the small cove.",
+   pois:["Mikri Ammos (the small cove) — sheltered, sunbeds and tavernas (the one to use in wind)","Megali Ammos — the surf beach and surf school (windy by design)","The wetland &amp; freshwater lake behind the sand — a short birdwatching / turtle stroll","The offshore 'Dragon Island' view","Full facilities both sides: loungers, showers, toilets, coffee &amp; lunch"],
    parking:"Beach lot, flat — the most accessible beach on the island.",
-   hours:"All day; organized (sunbeds, showers, toilets).",
+   hours:"All day; organized (sunbeds, showers, toilets, beach bar).",
    contact:"—",
-   tip:"WINDY this week (north coast). Use the SMALL cove (calm even in a northerly); skip the big beach."},
+   tip:"WINDY this week (north coast). Use the SMALL cove (Mikri Ammos) — it stays calm even in a northerly; skip the big surf beach."},
+
   {name:"Loutra & Falatados", dur:"2–3 hr", n:"a", w:"mid",
-   what:"Loutra: green oasis with Catholic monasteries & a folklore museum. Falatados: raki village with a marble-decorated church.",
+   what:"A pair of green inland villages that pair naturally with Volax. Loutra is a tiny, historic place (around 35 residents) built around the Ursulines' Convent, whose folklore museum lets you walk the rooms of the girls' boarding school that ran here for over 130 years. A short hop away, Falatados is the island's raki-and-wine village — second largest after Pyrgos — still full of presses and distilleries, with its own folklore museum, a marble-decorated church and a big raki festival each September.",
+   pois:["Ursulines' Convent &amp; Folk Museum, Loutra — the historic girls'-school rooms and loom/carpet workshops","Loutra's springs and green, shaded setting — an easy flat café anchor for Nonnie","Falatados — raki distilleries and presses; tavernas for a long lunch","Falatados Folklore Museum and the marble-decorated village church","Combine with Volax — all three sit in the center-east cluster, minutes apart"],
    parking:"Village edges; anchor Nonnie at a flat café.",
-   hours:"Daytime; tavernas for lunch.",
+   hours:"Daytime; tavernas for lunch; museum hours vary.",
    contact:"—",
-   tip:"Paved and close to the center-east cluster — easy to pair with Volax."},
+   tip:"Paved and close together — the gentlest 'village' outing, and an easy add-on to Volax."},
+
   {name:"Kechrovouni Monastery", dur:"1 hr", n:"r", w:"no",
-   what:"A hilltop working monastery (650 m) built like a mini white village — origin of the Tinos pilgrimage.",
+   what:"A hilltop working convent at 650 m, laid out like a whitewashed mini-village of arched lanes and tiny chapels — and the spiritual origin of the Tinos pilgrimage, since it was here that the nun Saint Pelagia had the vision that led to the discovery of the holy icon now in Hora. The views over the island are enormous. But the interior is steep and uneven, so for Nonnie this is a gate-drop: park right at the entrance and let her rest in the shade while the others walk in.",
+   pois:["Saint Pelagia's cell — the origin point of the pilgrimage","Icons and relics of the 18th–19th centuries in the katholikon","The maze of white arched lanes and little chapels (others; steep)","Panoramic island views from the courtyards","Note: modest dress required (long trousers) — it's an active monastery"],
    parking:"Small dirt lot right at the entrance gate.",
    hours:"Daytime; modest dress required (long trousers).",
    contact:"—",
-   tip:"VERIFIED marginal for Nonnie: interior is steep, narrow alleys. Gate-drop only — she waits while others look in."},
+   tip:"VERIFIED marginal for Nonnie: the interior is steep, narrow alleys. Gate-drop only — she waits at the entrance while others look in."},
+
   {name:"Costas Tsoclis Museum (Kambos)", dur:"1 hr", n:"a", w:"ok",
-   what:"Contemporary 'living painting' museum — a quick, low-effort culture stop.",
+   what:"A contemporary-art museum in the quiet village of Kambos devoted to Costas Tsoclis, one of Greece's best-known living artists, famous for 'living paintings' that blend canvas with video and movement. It's free, indoors and low-effort — a genuinely different note from the marble-and-villages circuit, and a perfect wind-proof option for a blustery or too-hot afternoon.",
+   pois:["Tsoclis's signature 'living painting' installations — canvas meets video","Rotating contemporary exhibitions (seasonal — confirm hours before going)","A short stroll through quiet Kambos village around it","Indoors = a reliable escape from wind or midday heat"],
    parking:"Village parking; short flat approach.",
    hours:"Seasonal hours — check before going · free entry.",
    contact:"—",
-   tip:"Indoors = wind-proof. A good backup for a blustery afternoon."},
+   tip:"Best kept as a flexible backup for a windy afternoon, since it's indoors and free."},
+
   {name:"Sunset bar above Kardiani", dur:"1.5–2 hr", n:"a", w:"no",
-   what:"Cliff-top bar with an enormous view; cocktails + sushi at golden hour.",
+   what:"A cliff-top bar perched high above Kardiani with one of the biggest sunset views on the island, serving cocktails and sushi as the sky turns gold over the Aegean. The catch is the setting itself: parking is small and tricky, and the high, west-facing perch catches the wind. Reserve ahead, drop Nonnie right at the door, and pack a layer — or hold it in reserve as a backup if the meltemi is really blowing.",
+   pois:["The sunset itself — arrive ~45–60 min ahead for the best light","Cocktails and a sushi menu","Reserve ahead (it's small) — +30 694 096 5994","A sheltered Plan B if it's blowing hard: drop down to O Ntinos at the bay instead"],
    parking:"Small / tricky — reserve, and drop Nonnie right at the door.",
    hours:"Late afternoon → night · reservation recommended.",
    contact:"+30 694 096 5994.",
-   tip:"High & west-facing = windy. Bring a layer; have a sheltered backup if the meltemi is strong."},
+   tip:"High and west-facing = windy. Bring a layer and have the sheltered bay as a fallback."},
+
   {name:"Panormos (seaside village)", dur:"2 hr", n:"g", w:"no",
-   what:"A charming harbor village near Pyrgos with flat waterfront cafés.",
+   what:"The little fishing harbour just beyond Pyrgos (about 3 km on), where you can watch the boats come in and eat at flat waterfront cafés looking across the bay. It's the marble district's seaside — there's a small shaded sand beach right in the village and a string of rugged beaches (Rochari, Agia Thalassa, Kavalargos) close by. Flat and easy for Nonnie, but the bay faces northwest and is exposed, so save it for a calmer day.",
+   pois:["The harbour — fishing boats and flat waterfront tavernas (Nonnie-friendly)","The small shaded village beach","Rochari / Agia Thalassa / Kavalargos — rugged beaches nearby (roamers)","Tinos Farm to Table &amp; Kounaria — local food stops in the area","Easy to combine with Pyrgos, just up the hill"],
    parking:"Harbor parking, flat.",
-   hours:"Daytime & evening.",
+   hours:"Daytime &amp; evening.",
    contact:"—",
-   tip:"Flat for Nonnie, but NW-facing and exposed — better on a calmer day."}
+   tip:"Flat for Nonnie, but NW-facing and exposed — better on a calmer day than in a strong meltemi."}
 ];
 
 const reservations = {
@@ -466,10 +496,12 @@ function mrow(label,val){return val && val!=="—" ? `<div class="mrow"><b>${lab
 document.getElementById("menu-list").innerHTML = menu.map(m=>{
   const nb=N[m.n], wb=W[m.w];
   const b = badge("b-dur","⏱ "+m.dur) + badge(nb[0],nb[1]) + badge(wb[0],wb[1]);
+  const pois = (m.pois||[]).map(p=>`<li>${p}</li>`).join("");
   return `<div class="card" data-n="${m.n}" data-w="${m.w}">
     <div class="top"><h3>${m.name}</h3></div>
     <div class="badges">${b}</div>
     <div class="mwhat">${m.what}</div>
+    ${pois?`<div class="mpoi"><b>Make the most of it</b><ul>${pois}</ul></div>`:""}
     ${mrow("Parking",m.parking)}
     ${mrow("Hours",m.hours)}
     ${mrow("Contact",m.contact)}
